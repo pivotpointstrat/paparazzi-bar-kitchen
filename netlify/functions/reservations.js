@@ -25,7 +25,7 @@ function json(obj, status = 200) {
   };
 }
 
-// Store in Supabase `reservations` table
+// Store in Supabase `reservations` table (matches the restaurant-bot schema)
 async function storeReservation(r) {
   if (!SUPABASE_URL || !SUPABASE_KEY) {
     console.warn('Supabase not configured — skipping storage.');
@@ -40,15 +40,14 @@ async function storeReservation(r) {
       Prefer: 'return=minimal',
     },
     body: JSON.stringify({
-      name: r.name,
-      phone: r.phone,
-      date: r.date,
-      time: r.time,
+      customer_name: r.name,
+      customer_contact: r.phone,
       party_size: r.party,
-      occasion: r.occasion || null,
-      notes: r.notes || null,
-      source: 'website',
-      created_at: new Date().toISOString(),
+      requested_date: r.date,
+      requested_time: r.time,
+      notes: [r.occasion ? `Occasion: ${r.occasion}. ` : '', r.notes || ''].join('').trim() || null,
+      platform: 'website',
+      status: 'pending',
     }),
   });
   if (!res.ok) {
