@@ -1,0 +1,14 @@
+# Secrets — never commit
+.env
+*.env
+.netlify/
+
+# Local-only working files (image catalog + menu data are source-of-truth derivations)
+images/raw/
+menu-data.json
+image-catalog.json
+gallery-data.json
+
+# OS / editor
+.DS_Store
+node_modules/

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reservations — Paparazzi Bar & Kitchen | Riverside, Phnom Penh</title>
+  <meta name="description" content="Book a table at Paparazzi Bar & Kitchen in Phnom Penh. Reserve online for dinner, drinks, or a private group booking." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="logo" href="/">
+        <img src="images/paparazzi-logo-white.png" alt="Paparazzi Bar & Kitchen" />
+        <span class="logo-word">Paparazzi <span class="amp">&amp;</span> Kitchen</span>
+      </a>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/menu.html">Menu</a>
+        <a href="/about.html">About</a>
+        <a href="/gallery.html">Gallery</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/reservations.html" class="btn gold">Book a Table</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="kicker">Reservations</p>
+      <h2 class="section-title">Book a table</h2>
+      <p class="section-lede">Tell us when you're coming and we'll have a table ready. For large groups or the private upper level, we'll confirm by phone.</p>
+
+      <div class="form-wrap" style="margin-top: 2.5rem;">
+        <form id="reservation-form">
+          <div class="grid grid-2">
+            <div class="field">
+              <label for="r-name">Name</label>
+              <input type="text" id="r-name" name="name" placeholder="Your name" required />
+            </div>
+            <div class="field">
+              <label for="r-phone">Phone</label>
+              <input type="tel" id="r-phone" name="phone" placeholder="+855 ..." required />
+            </div>
+          </div>
+          <div class="grid grid-2">
+            <div class="field">
+              <label for="r-date">Date</label>
+              <input type="date" id="r-date" name="date" required />
+            </div>
+            <div class="field">
+              <label for="r-time">Time</label>
+              <select id="r-time" name="time" required>
+                <option value="">Select time</option>
+                <option>11:00 AM</option><option>11:30 AM</option><option>12:00 PM</option>
+                <option>12:30 PM</option><option>1:00 PM</option><option>1:30 PM</option>
+                <option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option>
+                <option>5:00 PM</option><option>5:30 PM</option><option>6:00 PM</option>
+                <option>6:30 PM</option><option>7:00 PM</option><option>7:30 PM</option>
+                <option>8:00 PM</option><option>8:30 PM</option><option>9:00 PM</option>
+                <option>9:30 PM</option><option>10:00 PM</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid grid-2">
+            <div class="field">
+              <label for="r-party">Party size</label>
+              <select id="r-party" name="party" required>
+                <option value="">Select</option>
+                <option>1</option><option>2</option><option>3</option><option>4</option>
+                <option>5</option><option>6</option><option>7</option><option>8</option>
+                <option>9+ (group)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="r-occasion">Occasion (optional)</label>
+              <input type="text" id="r-occasion" name="occasion" placeholder="Birthday, anniversary…" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="r-notes">Special requests (optional)</label>
+            <textarea id="r-notes" name="notes" placeholder="Dietary needs, seating preference, cigar lounge…"></textarea>
+          </div>
+          <button type="submit" class="btn" id="r-submit">Request Reservation</button>
+        </form>
+        <div id="r-response" class="form-response"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="grid grid-4">
+        <div>
+          <h4>Visit</h4>
+          <p>179 E0 Preah Sisowath Quay,<br />Phnom Penh, Cambodia</p>
+        </div>
+        <div>
+          <h4>Hours</h4>
+          <p>Mon – Sat: 11:00 AM – 11:00 PM<br />Closed Sunday</p>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <p><a href="tel:+855317772840">031 777 2840</a><br /><a href="https://www.facebook.com/PaparazziPP">Facebook</a></p>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <p><a href="/menu.html">Menu</a><br /><a href="/reservations.html">Reservations</a><br /><a href="/gallery.html">Gallery</a></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Paparazzi Bar &amp; Kitchen. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
