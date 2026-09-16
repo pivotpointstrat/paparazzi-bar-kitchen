@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <script>document.documentElement.className += ' js';</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact & Location — Paparazzi Bar & Kitchen | Riverside, Phnom Penh</title>
   <meta name="description" content="Find Paparazzi Bar & Kitchen at 179 E0 Preah Sisowath Quay, Phnom Penh. Open Mon–Sat 11am–11pm. Call 031 777 2840 to book a table." />
@@ -17,7 +18,7 @@
         <img src="images/paparazzi-logo-white.png" alt="Paparazzi Bar & Kitchen" />
         <span class="logo-word">Paparazzi <span class="amp">Bar &amp;</span> Kitchen</span>
       </a>
-      <nav>
+      <nav id="main-nav">
         <a href="/">Home</a>
         <a href="/menu.html">Menu</a>
         <a href="/about.html">About</a>
@@ -25,6 +26,10 @@
         <a href="/contact.html" class="active">Contact</a>
         <a href="/reservations.html" class="btn gold">Book a Table</a>
       </nav>
+      <button class="nav-toggle" type="button" aria-label="Menu"
+              aria-expanded="false" aria-controls="main-nav">
+        <span class="nav-toggle-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+      </button>
     </div>
   </header>
 
@@ -82,5 +87,6 @@
       </div>
     </div>
   </footer>
+  <script src="nav.js" defer></script>
 </body>
 </html>

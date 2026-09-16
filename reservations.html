@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <script>document.documentElement.className += ' js';</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Reservations — Paparazzi Bar & Kitchen | Riverside, Phnom Penh</title>
   <meta name="description" content="Book a table at Paparazzi Bar & Kitchen in Phnom Penh. Reserve online for dinner, drinks, or a private group booking." />
@@ -17,7 +18,7 @@
         <img src="images/paparazzi-logo-white.png" alt="Paparazzi Bar & Kitchen" />
         <span class="logo-word">Paparazzi <span class="amp">Bar &amp;</span> Kitchen</span>
       </a>
-      <nav>
+      <nav id="main-nav">
         <a href="/">Home</a>
         <a href="/menu.html">Menu</a>
         <a href="/about.html">About</a>
@@ -25,6 +26,10 @@
         <a href="/contact.html">Contact</a>
         <a href="/reservations.html" class="btn gold">Book a Table</a>
       </nav>
+      <button class="nav-toggle" type="button" aria-label="Menu"
+              aria-expanded="false" aria-controls="main-nav">
+        <span class="nav-toggle-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+      </button>
     </div>
   </header>
 
@@ -124,5 +129,6 @@
   </footer>
 
   <script src="app.js"></script>
+  <script src="nav.js" defer></script>
 </body>
 </html>

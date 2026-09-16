@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <script>document.documentElement.className += ' js';</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Paparazzi Bar & Kitchen | Riverside, Phnom Penh — Food, Cocktails & Cigar Lounge</title>
   <meta name="description" content="Paparazzi Bar & Kitchen on Phnom Penh's Riverside — international comfort food, craft cocktails, steak and seafood, plus a cigar lounge upstairs. Open Mon–Sat 11am–11pm." />
@@ -40,6 +41,7 @@
     "acceptsReservations": "True"
   }
   </script>
+  <link rel="preload" as="image" href="images/hero-storefront.jpg" fetchpriority="high" />
 </head>
 <body>
   <header class="site-header">
@@ -48,7 +50,7 @@
         <img src="images/paparazzi-logo-white.png" alt="Paparazzi Bar & Kitchen" />
         <span class="logo-word">Paparazzi <span class="amp">Bar &amp;</span> Kitchen</span>
       </a>
-      <nav>
+      <nav id="main-nav">
         <a href="/" class="active">Home</a>
         <a href="/menu.html">Menu</a>
         <a href="/about.html">About</a>
@@ -56,6 +58,10 @@
         <a href="/contact.html">Contact</a>
         <a href="/reservations.html" class="btn gold">Book a Table</a>
       </nav>
+      <button class="nav-toggle" type="button" aria-label="Menu"
+              aria-expanded="false" aria-controls="main-nav">
+        <span class="nav-toggle-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+      </button>
     </div>
   </header>
 
@@ -80,28 +86,28 @@
       <h2 class="section-title">Four reasons to pull up a chair</h2>
       <div class="grid grid-4" style="margin-top: 2rem;">
         <div class="card">
-          <img src="images/gallery-img23.jpg" alt="Barbecue ribs with fries" />
+          <img src="images/gallery-img23.jpg" alt="Barbecue ribs with fries" / loading="lazy" decoding="async">
           <div class="card-body">
             <h3>Comfort Food</h3>
             <p>Slow-cooked ribs, house lasagna, steak &amp; Guinness pie — made from scratch.</p>
           </div>
         </div>
         <div class="card">
-          <img src="images/gallery-img11.jpg" alt="Grilled steak with roasted vegetables" />
+          <img src="images/gallery-img11.jpg" alt="Grilled steak with roasted vegetables" / loading="lazy" decoding="async">
           <div class="card-body">
             <h3>Steaks &amp; Grill</h3>
             <p>Australian beef and a $88 Tomahawk, cooked to order over the flame.</p>
           </div>
         </div>
         <div class="card">
-          <img src="images/gallery-img18.jpg" alt="Craft cocktails" />
+          <img src="images/gallery-img18.jpg" alt="Craft cocktails" / loading="lazy" decoding="async">
           <div class="card-body">
             <h3>24 Cocktails · $5</h3>
             <p>A full cocktail list, plus draught and imported beers and wine.</p>
           </div>
         </div>
         <div class="card">
-          <img src="images/gallery-img21.jpg" alt="Paparazzi staff" />
+          <img src="images/gallery-img21.jpg" alt="Paparazzi staff" / loading="lazy" decoding="async">
           <div class="card-body">
             <h3>Cigar Lounge</h3>
             <p>Step upstairs to a walk-in humidor stocked with premium cigars. Plenty of room to settle in, and a warm welcome every time.</p>
@@ -121,7 +127,7 @@
           <a href="/menu.html" class="btn gold" style="margin-top: 1.5rem;">Explore the full menu</a>
         </div>
         <div class="card" style="overflow:hidden;">
-          <img src="images/gallery-img01.jpg" alt="Charcuterie board" style="aspect-ratio: auto;" />
+          <img src="images/gallery-img01.jpg" alt="Charcuterie board" style="aspect-ratio: auto;" / loading="lazy" decoding="async">
         </div>
       </div>
     </div>
@@ -205,5 +211,6 @@
 
   <script src="app.js"></script>
   <script src="voice.js"></script>
+  <script src="nav.js" defer></script>
 </body>
 </html>
