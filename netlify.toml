@@ -2,3 +2,15 @@
   command = "echo 'static site'"
   publish = "."
   functions = "netlify/functions"
+
+# ---------------------------------------------------------------------------
+# SEO: one host, not two.
+# The site answers on BOTH paparazzi-pp.netlify.app and paparazzipp.com, so
+# Google sees two identical copies of every page competing with each other.
+# (www.paparazzipp.com already redirects correctly.) Send the netlify.app host
+# to the real domain permanently, so all ranking signal consolidates on one URL.
+[[redirects]]
+  from = "https://paparazzi-pp.netlify.app/*"
+  to = "https://paparazzipp.com/:splat"
+  status = 301
+  force = true

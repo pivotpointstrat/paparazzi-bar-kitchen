@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://paparazzi-pp.netlify.app/sitemap.xml
+Sitemap: https://paparazzipp.com/sitemap.xml

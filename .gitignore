@@ -12,3 +12,5 @@ gallery-data.json
 # OS / editor
 .DS_Store
 node_modules/
+images/_originals/
+*.log

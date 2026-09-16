@@ -6,10 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Paparazzi Bar & Kitchen | Riverside, Phnom Penh — Food, Cocktails & Cigar Lounge</title>
   <meta name="description" content="Paparazzi Bar & Kitchen on Phnom Penh's Riverside — international comfort food, craft cocktails, steak and seafood, plus a cigar lounge upstairs. Open Mon–Sat 11am–11pm." />
-  <meta property="og:title" content="Paparazzi Bar & Kitchen — Riverside, Phnom Penh" />
-  <meta property="og:description" content="International comfort food, craft cocktails, steak & seafood, and a cigar lounge — on Phnom Penh's Riverside." />
-  <meta property="og:image" content="images/hero-storefront.jpg" />
-  <meta property="og:type" content="restaurant" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -17,31 +13,84 @@
 
   <!-- JSON-LD Restaurant schema -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Restaurant",
-    "name": "Paparazzi Bar & Kitchen",
-    "image": "images/hero-storefront.jpg",
-    "servesCuisine": ["International", "Pub", "Scandinavian", "Khmer"],
-    "priceRange": "$$",
-    "telephone": "+855317772840",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "179 E0 Preah Sisowath Quay",
-      "addressLocality": "Phnom Penh",
-      "addressCountry": "KH"
-    },
-    "openingHoursSpecification": [{
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "@id": "https://paparazzipp.com/#restaurant",
+  "name": "Paparazzi Bar & Kitchen",
+  "alternateName": "Paparazzi PP",
+  "url": "https://paparazzipp.com/",
+  "logo": "https://paparazzipp.com/images/paparazzi-logo-black.png",
+  "image": [
+    "https://paparazzipp.com/images/og-image.jpg"
+  ],
+  "description": "Paparazzi Bar & Kitchen is a riverside bar and restaurant on Preah Sisowath Quay, Phnom Penh — Khmer and Asian dishes, small plates, pub classics, steaks, seafood, craft cocktails, and the Cigar Connection lounge upstairs.",
+  "servesCuisine": [
+    "International",
+    "Pub",
+    "Scandinavian",
+    "Khmer"
+  ],
+  "priceRange": "$$",
+  "currenciesAccepted": "USD, KHR",
+  "paymentAccepted": "Cash, ABA Pay, Credit Card",
+  "telephone": "+855317772840",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "179 E0 Preah Sisowath Quay",
+    "addressLocality": "Phnom Penh",
+    "addressCountry": "KH"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 11.572666,
+    "longitude": 104.928977
+  },
+  "hasMap": "https://www.google.com/maps/search/?api=1&query=Paparazzi+Bar+%26+Kitchen+Preah+Sisowath+Quay+Phnom+Penh",
+  "openingHoursSpecification": [
+    {
       "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
       "opens": "11:00",
       "closes": "23:00"
-    }],
-    "sameAs": ["https://www.facebook.com/PaparazziPP"],
-    "acceptsReservations": "True"
-  }
-  </script>
+    }
+  ],
+  "acceptsReservations": "True",
+  "hasMenu": "https://paparazzipp.com/menu.html",
+  "sameAs": [
+    "https://www.facebook.com/PaparazziPP",
+    "https://t.me/Paparazzi_kitchen_bot"
+  ]
+}
+</script>
   <link rel="preload" as="image" href="images/hero-storefront.jpg" fetchpriority="high" />
+  <!-- SEO BLOCK -->
+  <link rel="canonical" href="https://paparazzipp.com/" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="theme-color" content="#0f0f0f" />
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192.png" />
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Paparazzi Bar &amp; Kitchen" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="Paparazzi Bar & Kitchen | Riverside, Phnom Penh — Food, Cocktails & Cigar Lounge" />
+  <meta property="og:description" content="Paparazzi Bar & Kitchen on Phnom Penh's Riverside — international comfort food, craft cocktails, steak and seafood, plus a cigar lounge upstairs. Open Mon–Sat 11am–11pm." />
+  <meta property="og:url" content="https://paparazzipp.com/" />
+  <meta property="og:image" content="https://paparazzipp.com/images/hero-storefront.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Paparazzi Bar & Kitchen | Riverside, Phnom Penh — Food, Cocktails & Cigar Lounge" />
+  <meta name="twitter:description" content="Paparazzi Bar & Kitchen on Phnom Penh's Riverside — international comfort food, craft cocktails, steak and seafood, plus a cigar lounge upstairs. Open Mon–Sat 11am–11pm." />
+  <meta name="twitter:image" content="https://paparazzipp.com/images/hero-storefront.jpg" />
 </head>
 <body>
   <header class="site-header">
