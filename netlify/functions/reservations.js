@@ -11,6 +11,10 @@ const SUPABASE_URL = process.env.SUPABASE_URL || '';
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 const TG_TOKEN = process.env.TELEGRAM_BOT_TOKEN || '';
 const TG_OWNER = process.env.TELEGRAM_OWNER_CHAT_ID || '';
+// Website reservations must be attributed to a client, or a per-client
+// dashboard silently drops them. Set CLIENT_SLUG per site in Netlify env.
+const CLIENT_SLUG = process.env.CLIENT_SLUG || 'paparazzi-kitchen';
+let cachedClientId;
 
 function json(obj, status = 200) {
   return {
@@ -23,6 +27,22 @@ function json(obj, status = 200) {
     },
     body: JSON.stringify(obj),
   };
+}
+
+async function resolveClientId() {
+  if (cachedClientId !== undefined) return cachedClientId;
+  if (!SUPABASE_URL || !SUPABASE_KEY) return (cachedClientId = null);
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/clients?slug=eq.${encodeURIComponent(CLIENT_SLUG)}&select=id`,
+      { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } });
+    const rows = await res.json();
+    cachedClientId = rows && rows.length ? rows[0].id : null;
+  } catch (e) {
+    console.error('client lookup failed:', e.message);
+    cachedClientId = null;
+  }
+  return cachedClientId;
 }
 
 // Store in Supabase `reservations` table (matches the restaurant-bot schema)
@@ -46,6 +66,7 @@ async function storeReservation(r) {
       requested_date: r.date,
       requested_time: r.time,
       notes: [r.occasion ? `Occasion: ${r.occasion}. ` : '', r.notes || ''].join('').trim() || null,
+      client_id: await resolveClientId(),
       platform: 'website',
       status: 'pending',
     }),
