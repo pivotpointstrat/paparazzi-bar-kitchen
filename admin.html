@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Paparazzi Admin — Reservations &amp; Insights</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" href="images/favicon-32.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{--ink:#0f0f0f;--ink-2:#171614;--line:rgba(255,255,255,.09);--gold:#c9a24a;
+        --text:#ece7de;--dim:#9d968b;--ok:#5fbf7f;--warn:#e0b050;--bad:#d9736a}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ink);color:var(--text);font:15px/1.55 Inter,system-ui,sans-serif}
+  h1,h2,h3,.big{font-family:'Playfair Display',Georgia,serif;font-weight:600;letter-spacing:.01em}
+  .wrap{max-width:1180px;margin:0 auto;padding:22px 18px 70px}
+  header.top{display:flex;align-items:center;gap:14px;padding:14px 0 20px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  header.top img{height:38px;width:auto}
+  header.top .t{font-family:'Playfair Display',serif;font-size:1.32rem}
+  header.top .sub{color:var(--dim);font-size:.8rem;text-transform:uppercase;letter-spacing:.14em}
+  header.top button{margin-left:auto}
+  button{font:inherit;cursor:pointer;border-radius:7px;border:1px solid var(--line);
+         background:var(--ink-2);color:var(--text);padding:9px 15px;min-height:42px}
+  button:hover{border-color:var(--gold)}
+  button.primary{background:var(--gold);color:#17140d;border-color:var(--gold);font-weight:600}
+  .card{background:var(--ink-2);border:1px solid var(--line);border-radius:10px;padding:20px}
+  .login{max-width:400px;margin:12vh auto}
+  .login input{width:100%;font-size:16px;padding:12px 13px;border-radius:7px;border:1px solid var(--line);
+               background:#100f0e;color:var(--text);margin:12px 0}
+  .msg{color:var(--bad);min-height:20px;font-size:.9rem;margin-top:8px}
+  .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:12px;margin:22px 0}
+  .tile{background:var(--ink-2);border:1px solid var(--line);border-radius:10px;padding:15px 16px}
+  .tile .n{font-family:'Playfair Display',serif;font-size:1.95rem;line-height:1.15}
+  .tile .l{color:var(--dim);font-size:.74rem;text-transform:uppercase;letter-spacing:.11em;margin-top:3px}
+  .tile.hot .n{color:var(--gold)}
+  section{margin-top:30px}
+  section h2{font-size:1.3rem;margin:0 0 4px}
+  section .hint{color:var(--dim);font-size:.87rem;margin:0 0 14px}
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{width:100%;border-collapse:collapse;font-size:.92rem;min-width:640px}
+  th{text-align:left;color:var(--dim);font-weight:500;font-size:.72rem;text-transform:uppercase;
+     letter-spacing:.1em;padding:9px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+  td{padding:11px 10px;border-bottom:1px solid rgba(255,255,255,.05);vertical-align:top}
+  tr.today td{background:rgba(201,162,74,.08)}
+  .pill{display:inline-block;padding:2px 9px;border-radius:999px;border:1px solid var(--line);
+        font-size:.74rem;color:var(--dim)}
+  .pill.telegram{border-color:#3b6ea5;color:#9dc4ea}
+  .pill.facebook{border-color:#5b6bab;color:#b3c0f0}
+  .pill.website{border-color:#6d6a54;color:#d8cf9f}
+  select{font:inherit;background:#100f0e;color:var(--text);border:1px solid var(--line);
+         border-radius:6px;padding:6px 8px;min-height:38px}
+  .q{display:flex;gap:12px;align-items:baseline;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+  .q .c{color:var(--gold);font-weight:600;min-width:34px;font-family:'Playfair Display',serif}
+  .gap{background:rgba(217,115,106,.07);border-left:2px solid var(--bad);padding:11px 13px;
+       border-radius:0 7px 7px 0;margin-bottom:9px}
+  .gap .m{font-size:.94rem}
+  .gap .w{color:var(--dim);font-size:.78rem;margin-top:3px}
+  .empty{color:var(--dim);font-style:italic;padding:14px 0}
+  footer{color:var(--dim);font-size:.78rem;margin-top:36px;border-top:1px solid var(--line);padding-top:14px}
+  @media(max-width:640px){.wrap{padding:16px 13px 60px}.tile .n{font-size:1.6rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ------------------------------------------------ login -->
+  <div class="card login" id="loginCard">
+    <div class="sub" style="color:var(--dim);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase">Staff access</div>
+    <h1 style="margin:6px 0 2px;font-size:1.6rem">Paparazzi Admin</h1>
+    <p style="color:var(--dim);font-size:.9rem;margin:0 0 6px">Reservations and customer insights.</p>
+    <form id="loginForm">
+      <input type="password" id="pw" placeholder="Password" autocomplete="current-password" />
+      <button class="primary" style="width:100%" type="submit">Open dashboard</button>
+    </form>
+    <div class="msg" id="loginMsg"></div>
+  </div>
+
+  <!-- ------------------------------------------------ dashboard -->
+  <div id="dash" style="display:none">
+    <header class="top">
+      <img src="images/paparazzi-logo-white.png" alt="Paparazzi" />
+      <div>
+        <div class="t" id="bizName">Paparazzi Bar &amp; Kitchen</div>
+        <div class="sub">Reservations &amp; insights</div>
+      </div>
+      <button id="refresh">Refresh</button>
+      <button id="logout">Sign out</button>
+    </header>
+
+    <div class="tiles" id="tiles"></div>
+
+    <section>
+      <h2>Reservations</h2>
+      <p class="hint">Every booking with where it came from. Change a status from the dropdown — it saves immediately.</p>
+      <div class="scroll"><table id="resTable">
+        <thead><tr><th>When</th><th>Name</th><th>Party</th><th>Contact</th><th>Channel</th><th>Status</th><th>Notes</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+      <div class="empty" id="resEmpty" style="display:none">No reservations yet.</div>
+    </section>
+
+    <section>
+      <h2>What customers ask</h2>
+      <p class="hint">From real conversations on the website chat, Telegram and Messenger.</p>
+      <div class="card"><div id="topQ"></div></div>
+    </section>
+
+    <section>
+      <h2>Questions the bot couldn't answer</h2>
+      <p class="hint">Each one is something a customer wanted to know and we had no answer for — a to-do list written by your own customers.</p>
+      <div id="gaps"></div>
+    </section>
+
+    <footer id="foot"></footer>
+  </div>
+</div>
+
+<script>
+const API = '/.netlify/functions/admin';
+let DATA = null;
+
+const el = (id) => document.getElementById(id);
+const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) =>
+  ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+async function call(payload) {
+  const r = await fetch(API, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'same-origin',
+    body: JSON.stringify(payload),
+  });
+  const d = await r.json().catch(() => ({}));
+  return { status: r.status, body: d };
+}
+
+function fmtWhen(r) {
+  const d = (r.requested_date || '').slice(0, 10);
+  const t = r.requested_time || '';
+  if (/^\d{4}-\d{2}-\d{2}$/.test(d)) {
+    const nice = new Date(d + 'T12:00:00').toLocaleDateString(undefined,
+      { weekday: 'short', day: 'numeric', month: 'short' });
+    return nice + (t ? ' · ' + esc(t) : '');
+  }
+  return (d ? esc(d) : '<span style="color:var(--dim)">no date</span>') + (t ? ' · ' + esc(t) : '');
+}
+
+function render() {
+  const s = DATA.summary, q = DATA.questions;
+  el('bizName').textContent = DATA.business || 'Dashboard';
+
+  el('tiles').innerHTML = [
+    ['Today', s.todayCount, true],
+    ['Upcoming', s.upcoming, false],
+    ['Guests booked', s.upcomingGuests, false],
+    ['All bookings', s.total, false],
+    ['Unanswered', q.unansweredCount || 0, (q.unansweredCount || 0) > 0],
+  ].map(([l, n, hot]) =>
+    `<div class="tile${hot ? ' hot' : ''}"><div class="n">${n}</div><div class="l">${l}</div></div>`).join('');
+
+  const byCh = Object.entries(s.byPlatform || {})
+    .map(([k, v]) => `<span class="pill ${esc(k)}">${esc(k)} ${v}</span>`).join(' ');
+
+  const tb = document.querySelector('#resTable tbody');
+  tb.innerHTML = DATA.reservations.map((r) => `
+    <tr class="${r.isToday ? 'today' : ''}">
+      <td>${fmtWhen(r)}</td>
+      <td>${esc(r.customer_name)}</td>
+      <td>${esc(r.party_size || '')}</td>
+      <td>${esc(r.customer_contact)}</td>
+      <td><span class="pill ${esc(r.platform)}">${esc(r.platform || '?')}</span></td>
+      <td><select data-id="${esc(r.id)}">${DATA.statuses.map((st) =>
+        `<option value="${st}"${st === (r.status || 'pending') ? ' selected' : ''}>${st}</option>`).join('')}</select></td>
+      <td style="color:var(--dim);max-width:230px">${esc(r.notes || '')}</td>
+    </tr>`).join('');
+  el('resEmpty').style.display = DATA.reservations.length ? 'none' : 'block';
+
+  tb.querySelectorAll('select').forEach((sel) => {
+    sel.addEventListener('change', async () => {
+      const prev = sel.dataset.prev || '';
+      sel.disabled = true;
+      const { body } = await call({ action: 'status', id: sel.dataset.id, status: sel.value });
+      sel.disabled = false;
+      if (body.error) { alert('Could not save: ' + body.error); sel.value = prev; }
+      else { sel.dataset.prev = sel.value; load(); }
+    });
+    sel.dataset.prev = sel.value;
+  });
+
+  el('topQ').innerHTML = (q.top && q.top.length)
+    ? `<div style="color:var(--dim);font-size:.8rem;margin-bottom:8px">${byCh || ''}</div>` +
+      q.top.map((t) => `<div class="q"><span class="c">${t.count}×</span>
+        <span>${esc(t.message)}<br><span style="color:var(--dim);font-size:.76rem">${t.platforms.join(' · ')}</span></span></div>`).join('')
+    : '<div class="empty">No conversations logged yet.</div>';
+
+  el('gaps').innerHTML = (q.unanswered && q.unanswered.length)
+    ? q.unanswered.map((u) => `<div class="gap"><div class="m">${esc(u.message)}</div>
+        <div class="w">${esc(u.platform)} · ${new Date(u.at).toLocaleString()}</div></div>`).join('')
+    : '<div class="card"><div class="empty">Nothing unanswered — every question had an answer.</div></div>';
+
+  el('foot').textContent = `${q.totalInbound || 0} customer messages · ${q.totalOutbound || 0} replies · ${byCh ? '' : ''}updated ${new Date().toLocaleTimeString()}`;
+}
+
+async function load() {
+  const { status, body } = await call({ action: 'data' });
+  if (status === 401) { el('dash').style.display = 'none'; el('loginCard').style.display = 'block'; return; }
+  if (body.error) { el('loginMsg').textContent = body.error; el('dash').style.display = 'none'; el('loginCard').style.display = 'block'; return; }
+  DATA = body;
+  el('loginCard').style.display = 'none';
+  el('dash').style.display = 'block';
+  render();
+}
+
+el('loginForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  el('loginMsg').textContent = '';
+  const { status, body } = await call({ action: 'login', password: el('pw').value });
+  if (status === 200 && body.ok) { el('pw').value = ''; load(); }
+  else el('loginMsg').textContent = body.error || 'Could not sign in.';
+});
+el('refresh').addEventListener('click', load);
+el('logout').addEventListener('click', async () => { await call({ action: 'logout' }); location.reload(); });
+
+load();
+</script>
+</body>
+</html>
