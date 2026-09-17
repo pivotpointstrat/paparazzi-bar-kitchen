@@ -178,6 +178,64 @@ function summarise(list) {
   return { total: list.length, upcoming, todayCount, guests, upcomingGuests, byPlatform, byStatus };
 }
 
+
+// ---------------------------------------------------------------- analytics
+// First-party page views (see track.js). Degrades cleanly when the site_visits
+// migration has not been run yet, so the rest of the dashboard still works.
+async function analytics(cid) {
+  const since = new Date(Date.now() - 30 * 24 * 3600 * 1000).toISOString();
+  const res = await sb(`site_visits?client_id=eq.${cid}&created_at=gte.${since}`
+    + `&select=path,source,device,session_id,created_at&order=created_at.desc&limit=20000`);
+  const rows = await res.json();
+  if (!Array.isArray(rows)) return { ready: false };
+
+  const dayKey = (d) => new Date(d).toISOString().slice(0, 10);
+  const today = new Date();
+  const days = [];
+  for (let i = 13; i >= 0; i--) {
+    const d = new Date(today.getTime() - i * 24 * 3600 * 1000);
+    days.push({ day: dayKey(d), label: d.toLocaleDateString(undefined, { weekday: 'short', day: 'numeric' }), views: 0, visitors: 0 });
+  }
+  const byDay = new Map(days.map((d) => [d.day, d]));
+  const sessionsByDay = new Map();
+  const pages = new Map();
+  const sources = new Map();
+  const devices = new Map();
+  const allSessions = new Set();
+
+  for (const r of rows) {
+    const k = dayKey(r.created_at);
+    if (byDay.has(k)) byDay.get(k).views += 1;
+    if (r.session_id) {
+      allSessions.add(r.session_id);
+      if (!sessionsByDay.has(k)) sessionsByDay.set(k, new Set());
+      sessionsByDay.get(k).add(r.session_id);
+    }
+    pages.set(r.path || '/', (pages.get(r.path || '/') || 0) + 1);
+    sources.set(r.source || 'direct', (sources.get(r.source || 'direct') || 0) + 1);
+    devices.set(r.device || 'unknown', (devices.get(r.device || 'unknown') || 0) + 1);
+  }
+  for (const d of days) d.visitors = (sessionsByDay.get(d.day) || new Set()).size;
+
+  const rank = (m, n) => [...m.entries()].sort((a, b) => b[1] - a[1]).slice(0, n)
+    .map(([name, count]) => ({ name, count }));
+
+  const total = rows.length;
+  const todayKey = dayKey(today);
+  return {
+    ready: true,
+    total,
+    visitors30: allSessions.size,
+    todayViews: (byDay.get(todayKey) || {}).views || 0,
+    todayVisitors: (sessionsByDay.get(todayKey) || new Set()).size,
+    days,
+    maxDay: Math.max(1, ...days.map((d) => d.views)),
+    topPages: rank(pages, 6),
+    sources: rank(sources, 6),
+    devices: rank(devices, 3),
+  };
+}
+
 // ---------------------------------------------------------------- handler
 exports.handler = async (event) => {
   if (event.httpMethod === 'OPTIONS') return json({ ok: true });
@@ -215,7 +273,9 @@ exports.handler = async (event) => {
   if (action === 'data') {
     const list = await reservations(c.id);
     const q = await questions(c.id);
-    return json({ business: c.business_name, reservations: list, summary: summarise(list), questions: q, statuses: STATUSES });
+    const a = await analytics(c.id);
+    return json({ business: c.business_name, reservations: list, summary: summarise(list),
+                  questions: q, analytics: a, statuses: STATUSES });
   }
 
   if (action === 'status') {

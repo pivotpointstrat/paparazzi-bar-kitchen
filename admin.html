@@ -91,6 +91,21 @@
     <div class="tiles" id="tiles"></div>
 
     <section>
+      <h2>Site traffic</h2>
+      <p class="hint">First-party only — no Google Analytics, no cookies, no consent banner. The staff dashboard's own visits are excluded.</p>
+      <div id="stats" class="card" style="margin-bottom:14px">
+        <div class="tiles" id="statTiles" style="margin:0 0 18px"></div>
+        <div id="chart" style="display:flex;align-items:flex-end;gap:5px;height:150px"></div>
+        <div id="chartLabels" style="display:flex;gap:5px;margin-top:6px"></div>
+        <div class="tiles" style="grid-template-columns:repeat(auto-fit,minmax(210px,1fr));margin-top:22px">
+          <div><div class="l" style="color:var(--dim);font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">Top pages</div><div id="topPages"></div></div>
+          <div><div class="l" style="color:var(--dim);font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">Where they came from</div><div id="sources"></div></div>
+          <div><div class="l" style="color:var(--dim);font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">Device</div><div id="devices"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
       <h2>Reservations</h2>
       <p class="hint">Every booking with where it came from. Change a status from the dropdown — it saves immediately.</p>
       <div class="scroll"><table id="resTable">
@@ -187,6 +202,33 @@ function render() {
     });
     sel.dataset.prev = sel.value;
   });
+
+  // ---- analytics
+  const a = DATA.analytics || {};
+  if (!a.ready) {
+    el('stats').innerHTML = '<div class="empty">No traffic data yet. Run the site_visits migration, then visits will appear here.</div>';
+  } else {
+    el('statTiles').innerHTML = [
+      ['Views today', a.todayViews, true],
+      ['Visitors today', a.todayVisitors, false],
+      ['Views · 30 days', a.total, false],
+      ['Visitors · 30 days', a.visitors30, false],
+    ].map(([l, n, hot]) => `<div class="tile${hot ? ' hot' : ''}"><div class="n">${n}</div><div class="l">${l}</div></div>`).join('');
+
+    el('chart').innerHTML = a.days.map((d) =>
+      `<div title="${d.views} views, ${d.visitors} visitors" style="flex:1;display:flex;align-items:flex-end;height:100%">
+         <div style="width:100%;height:${Math.max(3, Math.round(d.views / a.maxDay * 100))}%;background:${d.views ? 'var(--gold)' : '#2a2724'};border-radius:3px 3px 0 0"></div>
+       </div>`).join('');
+    el('chartLabels').innerHTML = a.days.map((d) =>
+      `<div style="flex:1;text-align:center;font-size:.62rem;color:var(--dim)">${d.label.split(' ')[0]}</div>`).join('');
+
+    const rowsHtml = (items, suffix = '') => items.length
+      ? items.map((i) => `<div class="q" style="padding:6px 0"><span class="c">${i.count}${suffix}</span><span>${esc(i.name)}</span></div>`).join('')
+      : '<div class="empty">—</div>';
+    el('topPages').innerHTML = rowsHtml(a.topPages);
+    el('sources').innerHTML = rowsHtml(a.sources);
+    el('devices').innerHTML = rowsHtml(a.devices);
+  }
 
   el('topQ').innerHTML = (q.top && q.top.length)
     ? `<div style="color:var(--dim);font-size:.8rem;margin-bottom:8px">${byCh || ''}</div>` +
