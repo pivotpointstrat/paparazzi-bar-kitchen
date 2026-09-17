@@ -48,8 +48,9 @@ async function resolveClientId() {
 // Store in Supabase `reservations` table (matches the restaurant-bot schema)
 async function storeReservation(r) {
   if (!SUPABASE_URL || !SUPABASE_KEY) {
-    console.warn('Supabase not configured — skipping storage.');
-    return null;
+    // Never pretend this worked. An unconfigured form that says "received" is
+    // worse than a broken one: the customer believes they have a table.
+    throw new Error('storage not configured (SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY missing)');
   }
   const res = await fetch(`${SUPABASE_URL}/rest/v1/reservations`, {
     method: 'POST',
@@ -74,7 +75,9 @@ async function storeReservation(r) {
   if (!res.ok) {
     const text = await res.text().catch(() => '');
     console.error('Supabase insert failed:', res.status, text.slice(0, 200));
+    throw new Error(`storage failed ${res.status}`);
   }
+  return true;
 }
 
 // Notify owner via Telegram
@@ -129,10 +132,12 @@ exports.handler = async (event) => {
 
   try {
     await storeReservation(r);
-    await notifyOwner(r);
-    return json({ ok: true, message: 'Reservation request received.' });
   } catch (err) {
-    console.error('reservation error:', err.message);
-    return json({ error: 'Could not process reservation. Please call 031 777 2840.' }, 500);
+    // Storage comes first: if the booking is not saved, the customer must be
+    // told to call instead of being told it went through.
+    console.error('reservation NOT stored:', err.message);
+    return json({ error: 'Sorry — we could not save your booking. Please call 031 777 2840 and we will take it directly.' }, 500);
   }
+  await notifyOwner(r);
+  return json({ ok: true, message: 'Reservation request received.' });
 };
