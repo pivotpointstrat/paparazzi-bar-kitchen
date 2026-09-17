@@ -32,7 +32,7 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--charcoal);
   color: var(--paper);
-  font-family: var(--sans);
+  font-family: var(--sans), 'Noto Sans Khmer', sans-serif;
   font-size: 16px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
@@ -43,7 +43,7 @@ img { max-width: 100%; display: block; }
 a { color: var(--gold); text-decoration: none; transition: color .15s; }
 a:hover { color: var(--gold-soft); }
 
-h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; line-height: 1.15; }
+h1, h2, h3, h4 { font-family: var(--serif), 'Noto Sans Khmer', sans-serif; font-weight: 600; line-height: 1.15; }
 
 .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--gutter); }
 
@@ -59,7 +59,7 @@ h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; line-height: 1.15;
 .site-header .wrap { display: flex; align-items: center; justify-content: space-between; height: 76px; }
 .logo { display: flex; align-items: center; gap: 12px; }
 .logo img { height: 62px; width: auto; }
-.logo-word { font-family: var(--serif); font-size: 1.35rem; letter-spacing: .5px; color: var(--paper); }
+.logo-word { font-family: var(--serif), 'Noto Sans Khmer', sans-serif; font-size: 1.35rem; letter-spacing: .5px; color: var(--paper); }
 .logo-word .amp { color: var(--gold); }
 
 nav { display: flex; gap: 28px; align-items: center; }
@@ -84,7 +84,7 @@ nav a.active { color: var(--gold); }
 .section.alt { background: var(--charcoal-2); }
 
 .kicker {
-  font-family: var(--sans); font-size: 0.78rem; font-weight: 600;
+  font-family: var(--sans), 'Noto Sans Khmer', sans-serif; font-size: 0.78rem; font-weight: 600;
   letter-spacing: 3px; text-transform: uppercase; color: var(--gold);
   margin-bottom: 1rem;
 }
@@ -142,7 +142,7 @@ h2.section-title { font-size: clamp(2rem, 4.5vw, 3.2rem); margin-bottom: 1.25rem
    ========================================================================== */
 .menu-cat { margin-bottom: 3rem; }
 .menu-cat h3 {
-  font-family: var(--serif); font-size: 1.7rem; color: var(--gold);
+  font-family: var(--serif), 'Noto Sans Khmer', sans-serif; font-size: 1.7rem; color: var(--gold);
   padding-bottom: .6rem; margin-bottom: 1.25rem;
   border-bottom: 1px solid rgba(201,162,74,.2);
 }
@@ -157,7 +157,7 @@ h2.section-title { font-size: clamp(2rem, 4.5vw, 3.2rem); margin-bottom: 1.25rem
    ========================================================================== */
 .site-footer { background: #0a0a0a; border-top: 1px solid rgba(201,162,74,.12); padding: 4rem 0 2rem; }
 .site-footer .grid { gap: 2rem; }
-.site-footer h4 { color: var(--gold); font-family: var(--sans); font-size: .8rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem; }
+.site-footer h4 { color: var(--gold); font-family: var(--sans), 'Noto Sans Khmer', sans-serif; font-size: .8rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem; }
 .site-footer a, .site-footer p { color: var(--muted); font-size: .92rem; }
 .site-footer a:hover { color: var(--gold); }
 .footer-bottom { border-top: 1px solid rgba(154,147,138,.15); margin-top: 3rem; padding-top: 1.5rem; text-align: center; color: #6b655d; font-size: .8rem; }
@@ -170,7 +170,7 @@ h2.section-title { font-size: clamp(2rem, 4.5vw, 3.2rem); margin-bottom: 1.25rem
 .field label { display: block; font-size: .82rem; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; color: var(--muted); margin-bottom: .4rem; }
 .field input, .field select, .field textarea {
   width: 100%; background: var(--charcoal-3); border: 1px solid rgba(154,147,138,.3);
-  border-radius: 6px; padding: .85rem 1rem; color: var(--paper); font-family: var(--sans); font-size: 1rem;
+  border-radius: 6px; padding: .85rem 1rem; color: var(--paper); font-family: var(--sans), 'Noto Sans Khmer', sans-serif; font-size: 1rem;
   transition: border-color .15s;
 }
 .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--gold); }
