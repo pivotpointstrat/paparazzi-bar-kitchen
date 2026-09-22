@@ -4,6 +4,42 @@
   functions = "netlify/functions"
 
 # ---------------------------------------------------------------------------
+# Caching — mobile visitors on 3G/4G feel this on every repeat visit.
+# Photographs and fonts are content-addressed by name and never edited in
+# place (a new photo gets a new file), so they can be cached for a year.
+# HTML must stay revalidated or edits would not appear after a deploy.
+# ---------------------------------------------------------------------------
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# ---------------------------------------------------------------------------
 # DUPLICATE SITE WARNING — paparazzi-pp.netlify.app
 #
 # That host still serves a complete, STALE copy of this site: no canonical tags,

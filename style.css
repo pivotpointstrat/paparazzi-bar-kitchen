@@ -123,9 +123,9 @@ h2.section-title { font-size: clamp(2rem, 4.5vw, 3.2rem); margin-bottom: 1.25rem
    Cards / grids
    ========================================================================== */
 .grid { display: grid; gap: 1.75rem; }
-.grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-.grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-.grid-4 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.grid-2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+.grid-3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+.grid-4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); }
 
 .card {
   background: var(--charcoal-3); border: 1px solid rgba(201,162,74,.1);
@@ -369,3 +369,66 @@ img { height: auto; }
 /* Signature dish photo strip (menu page) */
 .dish-strip{display:flex;gap:12px;overflow-x:auto;padding:4px 2px 24px;scroll-snap-type:x mandatory;}
 .dish-strip img{width:170px;height:170px;object-fit:cover;border-radius:10px;flex:0 0 auto;scroll-snap-align:start;border:1px solid var(--line, #e5e0d5);}
+
+/* ==========================================================================
+   MOBILE PASS 2 (2026)
+   Audited on a 390x844 phone viewport. Additions only — nothing above is
+   overridden except where noted.
+   ========================================================================== */
+
+/* <picture> wraps every photograph for WebP delivery. Without display:contents
+   the wrapper becomes the flex/grid child, so `.card img` and the menu dish
+   strip would silently lose their layout (the strip images stopped being flex
+   items). display:contents removes the wrapper box and restores the old
+   geometry exactly. */
+picture { display: contents; }
+
+/* Notched phones: the floating chat/voice circles sat 24px from the physical
+   edge and were partially covered by the home indicator / rounded corners. */
+html { -webkit-tap-highlight-color: rgba(201, 162, 74, 0.18); }
+
+@supports (padding: max(0px)) {
+  .chat-toggle { right: max(24px, env(safe-area-inset-right)); }
+  .voice-toggle { left: max(24px, env(safe-area-inset-left)); }
+  .chat-toggle, .voice-toggle { bottom: max(24px, env(safe-area-inset-bottom)); }
+}
+
+@media (max-width: 900px) {
+  @supports (padding: max(0px)) {
+    .chat-toggle { right: max(16px, env(safe-area-inset-right)); }
+    .voice-toggle { left: max(16px, env(safe-area-inset-left)); }
+    .chat-toggle, .voice-toggle { bottom: max(20px, env(safe-area-inset-bottom)); }
+  }
+
+  /* the OpenStreetMap embed was a fixed 420px tall box that pushed the phone
+     footer far down the page; shorter on phones, taller again on tablets */
+  .map-embed iframe { height: min(56vh, 360px); }
+
+  /* long dish names + price on a narrow phone: let the row breathe instead of
+     letting a long name squeeze the price column */
+  .menu-item { gap: .5rem; }
+  .menu-item .desc { max-width: 100%; }
+  .menu-cat h3 { font-size: 1.45rem; }
+
+  /* safari zooms the page when an input smaller than 16px gets focus */
+  .field input, .field select, .field textarea, .chat-input-row input { font-size: 16px; }
+
+  /* keep anchor jumps clear of the sticky header */
+  .section { padding-left: 0; padding-right: 0; }
+}
+
+@media (max-width: 380px) {
+  :root { --gutter: 1rem; }
+  .btn { padding: 0.85rem 1.2rem; letter-spacing: .4px; }
+  .hero h1 { font-size: clamp(1.85rem, 9.5vw, 2.35rem); }
+  .hero-sub { font-size: 1.05rem; }
+  .logo img { height: 34px; }
+  .dish-strip img { width: 140px; height: 140px; }
+}
+
+/* horizontal-overflow guard: nothing should be able to create a sideways
+   scroll on a phone (the audit found the risk in the minmax() grids) */
+html, body { overflow-x: clip; }
+
+/* the contact map card needs a class so the rule above can target the iframe */
+.map-embed iframe { width: 100%; display: block; border: 0; }
