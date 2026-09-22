@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <script>document.documentElement.className += ' js';</script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Paparazzi Bar & Kitchen | Riverside, Phnom Penh — Food, Cocktails & Cigar Lounge</title>
   <meta name="description" content="Paparazzi Bar & Kitchen on Phnom Penh's Riverside — international comfort food, craft cocktails, steak and seafood, plus a cigar lounge upstairs. Open Mon–Sat 11am–11pm." />
   <link rel="stylesheet" href="fonts.css" />
@@ -69,6 +69,7 @@
 }
 </script>
   <link rel="preload" as="image" href="images/hero-storefront.jpg" fetchpriority="high" />
+  <link rel="preload" as="image" href="images/hero-storefront.webp" type="image/webp" fetchpriority="high" />
   <!-- SEO BLOCK -->
   <link rel="canonical" href="https://paparazzipp.com/" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -119,7 +120,7 @@
   </header>
 
   <section class="hero">
-    <div class="hero-bg" style="background-image: url('images/hero-storefront.jpg');"></div>
+    <div class="hero-bg" style="background-image: url('images/hero-storefront.jpg'); background-image: image-set(url('images/hero-storefront.webp') type('image/webp'), url('images/hero-storefront.jpg') type('image/jpeg'));"></div>
     <div class="wrap">
       <div class="hero-inner">
         <p class="kicker">Riverside · Phnom Penh</p>
@@ -139,28 +140,28 @@
       <h2 class="section-title">Four reasons to pull up a chair</h2>
       <div class="grid grid-4" style="margin-top: 2rem;">
         <div class="card">
-          <img src="images/gallery-img23.jpg" alt="Barbecue ribs with fries" / loading="lazy" decoding="async">
+          <picture><source srcset="images/gallery-img23.webp" type="image/webp"><img src="images/gallery-img23.jpg" alt="Barbecue ribs with fries" loading="lazy" decoding="async"></picture>
           <div class="card-body">
             <h3>Comfort Food</h3>
             <p>Slow-cooked ribs, house lasagna, steak &amp; Guinness pie — made from scratch.</p>
           </div>
         </div>
         <div class="card">
-          <img src="images/gallery-img11.jpg" alt="Grilled steak with roasted vegetables" / loading="lazy" decoding="async">
+          <picture><source srcset="images/gallery-img11.webp" type="image/webp"><img src="images/gallery-img11.jpg" alt="Grilled steak with roasted vegetables" loading="lazy" decoding="async"></picture>
           <div class="card-body">
             <h3>Steaks &amp; Grill</h3>
             <p>Australian beef and a $88 Tomahawk, cooked to order over the flame.</p>
           </div>
         </div>
         <div class="card">
-          <img src="images/gallery-img18.jpg" alt="Craft cocktails" / loading="lazy" decoding="async">
+          <picture><source srcset="images/gallery-img18.webp" type="image/webp"><img src="images/gallery-img18.jpg" alt="Craft cocktails" loading="lazy" decoding="async"></picture>
           <div class="card-body">
             <h3>24 Cocktails · $5</h3>
             <p>A full cocktail list, plus draught and imported beers and wine.</p>
           </div>
         </div>
         <div class="card">
-          <img src="images/gallery-img21.jpg" alt="Paparazzi staff" / loading="lazy" decoding="async">
+          <picture><source srcset="images/gallery-img21.webp" type="image/webp"><img src="images/gallery-img21.jpg" alt="Paparazzi staff" loading="lazy" decoding="async"></picture>
           <div class="card-body">
             <h3>Cigar Lounge</h3>
             <p>Step upstairs to a walk-in humidor stocked with premium cigars. Plenty of room to settle in, and a warm welcome every time.</p>
@@ -180,7 +181,7 @@
           <a href="/menu.html" class="btn gold" style="margin-top: 1.5rem;">Explore the full menu</a>
         </div>
         <div class="card" style="overflow:hidden;">
-          <img src="images/gallery-img01.jpg" alt="Charcuterie board" style="aspect-ratio: auto;" / loading="lazy" decoding="async">
+          <picture><source srcset="images/gallery-img01.webp" type="image/webp"><img src="images/gallery-img01.jpg" alt="Charcuterie board" loading="lazy" decoding="async"></picture>
         </div>
       </div>
     </div>
@@ -262,8 +263,8 @@
     </form>
   </div>
 
-  <script src="app.js"></script>
-  <script src="voice.js"></script>
+  <script src="app.js" defer></script>
+  <script src="voice.js" defer></script>
   <script src="nav.js" defer></script>
   <script src="analytics.js" defer></script>
   <script src="lang.js" defer></script>
